@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Smokum:[ 'Smokum', 'cursive']
+        Smokum:[ 'Smokum', 'cursive'],
+        Poppins:[ 'Poppins', 'sans-serif'],
       },
     },
   },
