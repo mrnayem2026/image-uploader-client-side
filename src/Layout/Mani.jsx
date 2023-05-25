@@ -1,9 +1,10 @@
 import React from 'react';
+import UploadImage from '../Pages/UploadImage/UploadImage';
 
 const Mani = () => {
     return (
         <div>
-            i am from main
+            <UploadImage></UploadImage>
         </div>
     );
 };
