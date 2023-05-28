@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { BeakerIcon, CloudArrowDownIcon } from "@heroicons/react/24/solid";
 
 const UploadImage = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    if (!selectedFile) {
+      console.log("No file selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    fetch("http://localhost:5000/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("File uploaded:", data);
+        // Do something with the response data
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle the error
+      });
+  };
+
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -20,10 +50,10 @@ const UploadImage = () => {
     console.log(files);
   };
 
-//  DataTransfer
-// The DataTransfer object is used to hold the data 
-// that is being dragged during a drag and drop operation.
-//  It may hold one or more data items, each of one or more data types.
+  //  DataTransfer
+  // The DataTransfer object is used to hold the data
+  // that is being dragged during a drag and drop operation.
+  //  It may hold one or more data items, each of one or more data types.
 
   return (
     <div className="container mx-auto py-9 flex justify-center items-center lg:h-screen ">
@@ -52,18 +82,24 @@ const UploadImage = () => {
           </div>
           <p className="text-center text-gray-300 font-thin text-lg py-4">Or</p>
           <div className="card-actions justify-center">
-            <label
+            <form
+              action="/upload"
+              method="post"
+              encType="multipart/form-data"
               htmlFor="file-upload"
               className="relative cursor-pointer  text-white py-2 px-24 rounded btn btn-primary text-xl font-Poppins font-semibold"
             >
               <span className="absolute">Choose a file</span>
               <input
                 id="file-upload"
+                name="image"
                 type="file"
                 className="opacity-0 absolute "
+                onChange={handleFileChange}
               />
-            </label>
+            </form>
           </div>
+              <button onClick={handleUpload}>Upload</button>
         </div>
       </div>
     </div>
@@ -71,3 +107,5 @@ const UploadImage = () => {
 };
 
 export default UploadImage;
+
+// write a code that pass a img file in server using expressJS and Multer Midlewere
