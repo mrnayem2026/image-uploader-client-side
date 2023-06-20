@@ -17,19 +17,10 @@ const UploadImage = () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    fetch("http://localhost:5000/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("File uploaded:", data);
-        // Do something with the response data
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle the error
-      });
+    console.log(selectedFile);
+
+
+    
   };
 
   const dragOver = (e) => {

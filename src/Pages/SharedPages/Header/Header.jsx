@@ -5,7 +5,7 @@ const Header = () => {
   const li = (
     <>
       <li className="text-2xl font-mono">
-        <Link>All Image</Link>
+        <Link to='/all_image'>All Image</Link>
       </li>
       <li className="text-2xl font-mono mx-3">
         <Link>My Image</Link>
@@ -43,7 +43,7 @@ const Header = () => {
               {li}
             </ul>
           </div>
-          <a className="text-4xl font-Smokum"><span className="text-[#EC75BB] font-bold italic">Image</span>Uploader</a>
+          <Link to='/'><a className="text-4xl font-Smokum"><span className="text-[#EC75BB] font-bold italic">Image</span>Uploader</a></Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{li}</ul>
