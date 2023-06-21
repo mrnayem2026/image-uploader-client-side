@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { BeakerIcon, CloudArrowDownIcon } from "@heroicons/react/24/solid";
+import useAxiosSecure from "../../customHooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const UploadImage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+
+  const [axiosSecure] = useAxiosSecure();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -17,10 +24,32 @@ const UploadImage = () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    console.log(selectedFile);
-
-
-    
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgResponse) => {
+        if (imgResponse.success) {
+          const imgURL = imgResponse.data.display_url;
+          const newImage = {
+            image: imgURL,
+          };
+          console.log(newImage);
+          axiosSecure.post("/uploade_image", newImage).then((data) => {
+            if (data.data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "New Image added successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+        }
+      });
+      
   };
 
   const dragOver = (e) => {
@@ -90,7 +119,7 @@ const UploadImage = () => {
               />
             </form>
           </div>
-              <button onClick={handleUpload}>Upload</button>
+          <button onClick={handleUpload}>Upload</button>
         </div>
       </div>
     </div>
