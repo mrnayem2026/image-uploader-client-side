@@ -5,20 +5,14 @@ const Header = () => {
   const li = (
     <>
       <li className="text-2xl font-mono">
-        <Link to='/all_image'>All Image</Link>
-      </li>
-      <li className="text-2xl font-mono mx-3">
-        <Link>My Image</Link>
-      </li>
-      <li className="text-2xl font-mono"> 
-        <Link>Login</Link>
+        <Link to='/all_image'>All Uploaded Image</Link>
       </li>
     </>
   );
   return (
     <>
-      <div className="navbar bg-base-100 container mx-auto">
-        <div className="navbar-start">
+      <div className="navbar bg-base-100 container mx-auto ">
+        <div className="navbar-start ">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
@@ -36,13 +30,15 @@ const Header = () => {
                 />
               </svg>
             </label>
+
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content shadow bg-base-100 rounded-box "
             >
               {li}
             </ul>
           </div>
+
           <Link to='/'><a className="text-4xl font-Smokum"><span className="text-[#EC75BB] font-bold italic">Image</span>Uploader</a></Link>
         </div>
         <div className="navbar-center hidden lg:flex">

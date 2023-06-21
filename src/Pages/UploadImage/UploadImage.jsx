@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { BeakerIcon, CloudArrowDownIcon } from "@heroicons/react/24/solid";
 import useAxiosSecure from "../../customHooks/useAxiosSecure";
+import { GridLoader } from 'react-spinners';
 import Swal from "sweetalert2";
 
 const UploadImage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading,setLoading] = useState(false)
 
   const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
@@ -21,6 +23,9 @@ const UploadImage = () => {
       return;
     }
 
+    setLoading(true)
+
+
     const formData = new FormData();
     formData.append("image", selectedFile);
 
@@ -30,6 +35,7 @@ const UploadImage = () => {
     })
       .then((res) => res.json())
       .then((imgResponse) => {
+
         if (imgResponse.success) {
           const imgURL = imgResponse.data.display_url;
           const newImage = {
@@ -37,7 +43,9 @@ const UploadImage = () => {
           };
           console.log(newImage);
           axiosSecure.post("/uploade_image", newImage).then((data) => {
-            if (data.data.insertedId) {
+            if (data.data.data.insertedId) {
+              setLoading(false)
+              console.log("HEllo Nayem form SWAl");
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -119,7 +127,9 @@ const UploadImage = () => {
               />
             </form>
           </div>
-          <button onClick={handleUpload}>Upload</button>
+          <div className="flex justify-center py-4">
+          <button onClick={handleUpload} disabled={loading ? <GridLoader></GridLoader> :  loading} className="btn btn-outline py-2 px-24 text-xl font-Poppins font-semibold w-2/5">Upload</button>
+          </div>
         </div>
       </div>
     </div>
