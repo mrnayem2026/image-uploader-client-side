@@ -65,6 +65,6 @@ To run the ImageUploder application, follow these steps:
 
 ## Live Site
 
-You can access the live version of the website at [Image Uploader](https://candid-salamander-8f1e3a.netlify.app/).
+You can access the live version of the website at [Image Uploader](https://bright-fox-8dde81.netlify.app/).
 
 ![Screenshot](/src/assets/web.png)
